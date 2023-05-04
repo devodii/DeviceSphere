@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Rubik:wght@400;600&display=swap");
+
+:root {
+   --color: red;
+   --weak-orange: #ff9e7a;
+   --burnt-orange: #dcaa70;
+   --weak-green: #50e3c2;
+   --primary-pink: #ff0061;
+   --depreciated-pink: #ff0061ad;
+   --mid-green: #a6d4cc;
+   --dark-blue: #191935;
+   --ligher-pink: #fff3f2;
+
+   /* Structural layout */
+   --flex-gap: 10px;
+
+   /* border-radius */
+   --border-radius-btn: 7px;
+
+   color-scheme: light dark;
+}
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+body {
+   display: flex;
+   line-height: 1.5;
+   color: #000;
+   background-color: #fff;
+   font-family: "Rubik", sans-serif;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   font-synthesis: none;
+   text-rendering: optimizeLegibility;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   -webkit-text-size-adjust: 100%;
+}
+
+::-webkit-scrollbar {
+   width: 13px;
+}
+
+::-webkit-scrollbar-track {
+   background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+   border: 4px solid rgba(0, 0, 0, 0);
+   background-clip: padding-box;
+   -webkit-border-radius: 8px;
+   height: 50px;
+   background-color: var(--weak-orange);
+}
+
+::selection {
+   color: var(--dark-blue);
+   background-color: #d59955;
+}
+
+input {
+   max-width: 100%;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    color: #fff;
+    background-color: #213547;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */
