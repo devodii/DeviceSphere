@@ -6,7 +6,7 @@ import { Button } from "../Components/wrapper";
 const HeaderOverlay = () => {
    return (
       <Container>
-         <img src="/src/assets/ds.png" alt="DeviceSphere" />
+         <img src="/assets/ds.png" alt="DeviceSphere" />
 
          <Order >
             <Link to={"order"}>

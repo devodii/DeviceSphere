@@ -4,7 +4,7 @@ const Header = () => {
    return (
       <>
          <Container>
-            <img src="/src/assets/ds.png" alt="DeviceSphere" />
+            <img src="/assets/ds.png" alt="DeviceSphere" />
 
             <button>
                <em>

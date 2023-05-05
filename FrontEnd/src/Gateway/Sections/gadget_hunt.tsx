@@ -6,7 +6,7 @@ import { BsArrowDownShort } from "react-icons/bs";
 const GadgetHunt = () => (
    <Container>
       <div className="gadget__hunt">
-         <img src="/src/assets/find-gadget.png" alt="Find your gadget" />
+         <img src="/assets/find-gadget.png" alt="Find your gadget" />
          <span>Gadget hunt!</span>
       </div>
       <h3>System for researching gadgets</h3>
