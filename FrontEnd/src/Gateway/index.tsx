@@ -35,8 +35,7 @@ const DeviceSphere = () => {
          <FreqentlyAskedQuestions />
          <Newsletter />
          <MainFooter />
-
-         <h1>Test Foter</h1>
+         
       </Container>
    );
 };
