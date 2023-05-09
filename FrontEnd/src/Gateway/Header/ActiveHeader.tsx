@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Button } from "../Components/wrapper";
-
+import { Button } from "../../Components/wrapper";
 
 const HeaderOverlay = () => {
    return (
       <Container>
-         <img src="/assets/ds.png" alt="DeviceSphere" />
+         <img src="/assets/ds.png" alt="DeviceSphere" loading="eager" />
 
-         <Order >
+         <Order>
             <Link to={"order"}>
                <em>Order now, it's on us</em>
             </Link>
@@ -20,7 +19,7 @@ const Order = styled(Button)`
    @media (max-width: 600px) {
       font-size: 15px;
    }
-`
+`;
 const Container = styled.header`
    position: fixed;
    left: 0;

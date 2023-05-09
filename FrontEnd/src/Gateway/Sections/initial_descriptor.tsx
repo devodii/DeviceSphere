@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { BsCheckLg } from "react-icons/bs";
-import { Button } from "../Components/wrapper";
+import { Button } from "../../Components/wrapper";
 import { Benefits } from "../..";
 
 const AdvantageDs: Benefits[] = [

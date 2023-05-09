@@ -1,20 +1,18 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-const Header = () => {
-   return (
-      <>
-         <Container>
-            <img src="/assets/ds.png" alt="DeviceSphere" />
+const Header = () => (
+   <>
+      <Container>
+         <img src="/assets/ds.png" alt="DeviceSphere" loading="eager" />
 
-            <button>
-               <em>
-                  <Link to={"order"}>Order Now</Link>
-               </em>
-            </button>
-         </Container>
-      </>
-   );
-};
+         <button>
+            <em>
+               <Link to={"order"}>Order Now</Link>
+            </em>
+         </button>
+      </Container>
+   </>
+);
 
 const Container = styled.header`
    display: flex;

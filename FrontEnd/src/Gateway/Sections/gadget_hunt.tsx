@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { GetStarted } from "../Components/wrapper";
+import { GetStarted } from "../../Components/wrapper";
 import { BsArrowDownShort } from "react-icons/bs";
 
 const GadgetHunt = () => (

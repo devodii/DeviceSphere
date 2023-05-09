@@ -16,7 +16,7 @@ const Helped = () => {
             }
             return prevCount + 200;
          });
-      }, 10);
+      }, 25);
 
       const empowered_count: number = setTimeout(() => {
          setEmpowered((prev: number) => {
@@ -26,7 +26,7 @@ const Helped = () => {
             }
             return prev + 20;
          });
-      }, 10);
+      }, 25);
 
       const discountedSale: number = setTimeout((): void => {
          setDiscounts((prevCount: number) => {
@@ -36,7 +36,7 @@ const Helped = () => {
             }
             return prevCount + 1000;
          });
-      }, 10);
+      }, 25);
 
       return () => {
          clearTimeout(intervalId);

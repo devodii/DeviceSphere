@@ -1,7 +1,7 @@
 import { useId } from "react";
 import styled from "styled-components";
 import { Product } from "../../..";
-import { Button } from "../../Components/wrapper";
+import { Button } from "../../../Components/wrapper";
 interface Props {
    product: Product;
 }

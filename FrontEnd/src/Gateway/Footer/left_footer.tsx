@@ -12,9 +12,11 @@ const Container = styled.div`
    div {
       display: flex;
       justify-content: space-around;
+      margin-top: 5px;
       p {
          @media (max-width: 768px) {
             font-size: 15.5px;
+
          }
       }
    }

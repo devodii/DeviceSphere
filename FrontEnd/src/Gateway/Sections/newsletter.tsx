@@ -4,30 +4,46 @@ import styled from "styled-components";
 const Newsletter = () => {
    const id = useId();
    const [email, setEmail] = useState<string>("");
+   const [submit, setSubmit] = useState<boolean>(true);
 
+   function HandleSubmit(e: any) {
+      e.preventDefault();
+      setSubmit(false);
+   }
    return (
       <Container>
-         <div>
-            <h2>Newsletter</h2>
-            <strong>
-               Subscribe to our newsletter for updates, news, insights, and
-               promotions
-            </strong>
-         </div>
-         <form action="/">
-            <input
-               type="email"
-               placeholder="Your Email Adress"
-               id={id}
-               value={email}
-               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmail(e.target.value)
-               }
-            />
-            <button type="submit" role="submit" aria-describedby="subscribe">
-               Subscribe
-            </button>
-         </form>
+         {submit ? (
+            <>
+               <div>
+                  <h2>Newsletter</h2>
+                  <strong>
+                     Subscribe to our newsletter for updates, news, insights,
+                     and promotions
+                  </strong>
+               </div>
+               <form onSubmit={HandleSubmit}>
+                  <input
+                     type="email"
+                     placeholder="Your Email Adress"
+                     id={id}
+                     value={email}
+                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setEmail(e.target.value)
+                     }
+                     required
+                  />
+                  <button
+                     type="submit"
+                     role="submit"
+                     aria-describedby="subscribe"
+                  >
+                     Subscribe
+                  </button>
+               </form>
+            </>
+         ) : (
+            <strong className="subscribed">Thanks for subscribing!</strong>
+         )}
       </Container>
    );
 };
@@ -105,6 +121,11 @@ const Container = styled.section`
             background-color: var(--burnt-orange);
          }
       }
+   }
+   .subscribed {
+      font-size: 22px;
+      text-align: center;
+      width: 100%;
    }
 `;
 

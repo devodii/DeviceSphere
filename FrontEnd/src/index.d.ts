@@ -1,3 +1,4 @@
+
 export interface Testifier {
    name: string;
    ImgUrl: string;
@@ -5,6 +6,10 @@ export interface Testifier {
    testimony: string;
    tweetUrl: string;
    verified?: boolean;
+}
+
+export interface ModalType {
+   closeModal: any
 }
 
 type Check = string | boolean | number;

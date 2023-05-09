@@ -5,6 +5,7 @@ import { Product } from "../..";
 
 const Offer = () => {
    const [item, setItem] = useState<Product[] | null>(null);
+   const [error, setError] = useState<boolean>(false)
    useEffect(() => {
       const Fetch = async (): Promise<Product[]> => {
          const response = await fetch("http://localhost:3001/items", {
@@ -13,8 +14,11 @@ const Offer = () => {
             },
          });
          const data = await response.json();
+
          setItem(data);
          return data;
+
+        
       };
       Fetch();
    }, []);
