@@ -39,13 +39,26 @@ body {
    -moz-osx-font-smoothing: grayscale;
    -webkit-text-size-adjust: 100%;
    min-width: 100%;
+   overflow-x: hidden;
    padding: 10px 20px;
 }
 
 input {
-   color: #000
+   color: #000;
+   background-color: #fff;
+}
+input[type="text"]::-webkit-credentials-auto-fill-button,
+input[type="text"]::-webkit-credentials-auto-fill-field,
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-field {
+  appearance: none;
+  background-color: #fff;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+   appearance: none;
+}
 ::-webkit-scrollbar {
    width: 13px;
 }

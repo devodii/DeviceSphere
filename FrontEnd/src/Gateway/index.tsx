@@ -9,7 +9,9 @@ import Newsletter from "./Sections/newsletter";
 import MainFooter from "./Footer/main_footer";
 import { useEffect, useState } from "react";
 import HeaderOverlay from "./Header/ActiveHeader";
-
+import Testimonial from "./Sections/testimonial";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../Firebase";
 const DeviceSphere = () => {
    const [showHeader, setShowHeader] = useState<boolean>(false);
 
@@ -24,6 +26,7 @@ const DeviceSphere = () => {
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
    }, [showHeader]);
+
    return (
       <Container>
          <Header />
@@ -31,11 +34,11 @@ const DeviceSphere = () => {
          <InitialDescriptor />
          <GadgetHunt />
          <Helped />
+         <Testimonial />
          <Offer />
          <FreqentlyAskedQuestions />
          <Newsletter />
          <MainFooter />
-         
       </Container>
    );
 };

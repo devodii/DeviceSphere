@@ -32,3 +32,11 @@ export interface Product {
 export interface Benefits {
    title: string
 }
+
+export type FormValues = {
+   FirstName: string,
+   LastName: string,
+   Tel: number,
+   email: string,
+
+}

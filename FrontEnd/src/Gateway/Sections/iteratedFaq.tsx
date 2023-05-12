@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Faq } from "../..";
-import { RxPlus } from "react-icons/rx";
-
+import { Link } from "react-router-dom";
+import { RxMinus, RxPlus } from "react-icons/rx";
+import { useMediaQuery } from "@material-ui/core";
 interface Prop {
    values: Faq[];
 }
@@ -10,61 +11,100 @@ interface Prop {
 const IteratedFaq = ({ values }: Prop) => {
    const PrimaryFaq: Faq[] = values.slice(0, 5);
    const SecondaryFaq: Faq[] = values.slice(5, 9);
-   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+   const [showSecondary, setShowSecondary] = useState<boolean>(false);
+   const [activeIndex, setActiveIndex] = useState<number>(-1);
+   const [loadMore, setLoadMore] = useState<boolean>(true);
+   const mediaMatches = useMediaQuery("(max-width: 936px)");
 
-   function handleToggle(index: number) {
-      setActiveIndex(activeIndex === index ? null : index);
+   const HandleToggle = (index: number) => {
+      if (activeIndex === index) {
+         setActiveIndex(-1)
+      }
+      else {
+         setActiveIndex(index)
+      }
    }
+
+
+   useEffect(() => {
+      !mediaMatches ? setShowSecondary(true) : setShowSecondary(false);
+   }, [mediaMatches]);
 
    return (
       <Container>
          <div className="flex__primary__faq">
+            
             {PrimaryFaq.map((faq, index: number) => {
                return (
                   <>
                      <div
                         className="full__"
                         key={index}
-                        onClick={() => handleToggle(index)}
+                        onClick={() => HandleToggle(index)}
                      >
                         <div className="full__question_container">
                            <p>{faq.question}</p>
-                           <RxPlus className="fa-add" />
+                           {activeIndex === index ? (
+                              <RxMinus className="fa-add" />
+                           ) : (
+                              <RxPlus className="fa-add" />
+                           )}
                         </div>
 
-                        <div className={"full__response__container"}>
-                           <p>{faq.answer}</p>
-                           <span>{faq.precision}</span>
-                        </div>
+                        {activeIndex === index && (
+                           <div className={"full__response__container"}>
+                              <p>{faq.answer}</p>
+                              <Link to={"/contact"}> 
+                                 <span>{faq.precision}</span>
+                              </Link>
+                           </div>
+                        )}
                      </div>
                   </>
                );
             })}
          </div>
 
-         <div className="flex__primary__faq">
-            {SecondaryFaq.map((faq, index: number) => {
-               return (
-                  <>
-                     <div
-                        className="full__"
-                        key={index}
-                        onClick={() => handleToggle(index)}
-                     >
-                        <div className="full__question_container">
-                           <p>{faq.question}</p>
-                           <RxPlus className="fa-add" />
-                        </div>
+         {mediaMatches && loadMore ? (
+            <button
+               className="load_more"
+               onClick={() => {
+                  setShowSecondary(true);
+                  setLoadMore(false);
+               }}
+            >
+               Load More
+            </button>
+         ) : null}
 
-                        <div className={"full__response__container"}>
-                           <p>{faq.answer}</p>
-                           <span>{faq.precision}</span>
+         {showSecondary ? (
+            <div className="flex__secondary__faq">
+               { SecondaryFaq.map((faq, secondaryIndex: number) => {
+                  const index = secondaryIndex + 5
+                  return (
+                     <>
+                        <div
+                           className="full__"
+                           key={index}
+                           onClick={() => HandleToggle(index)}
+                        >
+                           <div className="full__question_container">
+                              <p>{faq.question}</p>
+                              <RxPlus className="fa-add" />
+                           </div>
+
+                           {activeIndex === index && (
+                              <div className={"full__response__container"}>
+                                 <p>{faq.answer}</p>
+                                 <span>{faq.precision}</span>
+                              </div>
+                           )}
                         </div>
-                     </div>
-                  </>
-               );
-            })}
-         </div>
+                     </>
+                  );
+               })}
+            </div>
+         ) : null}
       </Container>
    );
 };
@@ -77,27 +117,45 @@ const Container = styled.div`
    width: min(100%, 1200px);
    padding-top: 50px;
    margin: 0 auto;
-   overflow-x: hidden;
+   overflow: hidden;
 
    @media (max-width: 600px) {
       display: flex;
       flex-direction: column;
       gap: 20px;
    }
-   div.flex__primary__faq {
+   div.flex__primary__faq,
+   div.flex__secondary__faq {
       display: flex;
       flex-direction: column;
       gap: 20px;
       width: 100%;
    }
+   .load_more {
+      padding: 8px 15px;
+      width: min(100%, 250px);
+      font-size: 17px;
+      margin: 0 auto;
+      transition: all 300ms;
+      border-radius: 5px;
+      text-transform: uppercase;
+      background-color: var(--weak-orange);
+      border: none;
+      cursor: pointer;
+      outline: none;
+      &:hover {
+         background-color: var(--burnt-orange);
+      }
+   }
 
    .full__ {
       background-color: #fff;
-      padding: 30px 35px;
+      padding: 35px 35px 0;
       height: auto;
       width: 100%;
       @media (max-width: 600px) {
          width: 100%;
+         padding: 30px 35px 20px;
       }
       color: var(--dark-blue);
       border-radius: 20px;
@@ -108,6 +166,7 @@ const Container = styled.div`
          align-items: center;
          width: 100%;
          height: 50%;
+         max-height: 50px;
          justify-content: space-between;
          p {
             font-size: 25px;
@@ -123,6 +182,7 @@ const Container = styled.div`
 
          .fa-add {
             font-size: 24px;
+            transition: all 2s;
             @media (max-width: 600px) {
                font-size: 30px;
             }
@@ -131,12 +191,23 @@ const Container = styled.div`
 
       div.full__response__container {
          cursor: auto;
-         margin-top: var(--flex-gap);
+         padding-top: calc(var(--flex-gap) + 4px);
          padding-bottom: 20px;
          height: auto;
          margin-top: 0;
-         transform: translateY(0);
+         animation: 0.2s Translator ease-in-out 0s forwards;
          transition: 0.3s ease-in-out;
+
+         @keyframes Translator {
+            from {
+               transform: translateY(-20%);
+               opacity: 0;
+            }
+            to {
+               transform: translateY(0);
+               opacity: 1;
+            }
+         }
 
          p {
             line-height: 1.4;

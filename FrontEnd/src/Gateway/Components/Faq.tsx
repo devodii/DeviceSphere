@@ -70,6 +70,8 @@ const primaryFaq: Faq[] = [
    },
 ];
 
+
+
 const FreqentlyAskedQuestions = () => {
     
    return (

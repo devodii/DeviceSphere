@@ -39,6 +39,7 @@ const Container = styled.div`
       box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1);
       min-height: 200px;
       display: flex;
+      margin-inline: 10px;
       flex-direction: column;
       justify-content: center;
       align-items: center;

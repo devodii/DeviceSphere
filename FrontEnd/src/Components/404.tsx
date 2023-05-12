@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import styled, { AnyStyledComponent } from "styled-components";
 import { Button } from "./wrapper";
-import MainFooter from "../Gateway/Footer/main_footer";
 
 const HomeButton: AnyStyledComponent = styled(Button)`
    width: min(100%, 200px);

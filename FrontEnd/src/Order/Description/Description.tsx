@@ -1,11 +1,17 @@
-import { useId, useState, useTransition } from "react";
+import { useId, useRef, useState, useTransition } from "react";
 import styled from "styled-components";
 import Modal from "./Components/Modal";
+import { useLocation } from "react-router-dom";
+import emailjs from "@emailjs/browser";
+
 
 const Description = () => {
+
+
    const ProductId = useId();
+   const location = useLocation()
    const [description, setDescription] = useState<string>("")
-   const [isPending, startTransition] = useTransition();
+   const [, startTransition] = useTransition();
 
    const [openModal, setOpenModal] = useState<boolean>(false);
 
@@ -16,8 +22,24 @@ const Description = () => {
       });
    };
 
+
+  const form = useRef<HTMLFormElement>();
+  const sendEmail = (e: any) => {
+     e.preventDefault();
+     
+
+    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+   };
+   console.log(form.current)
+
+
    return (
-      <>
+      <form ref={form} onSubmit={sendEmail}>
          <Container>
             <figure>
                <img src="/assets/ds.png" alt="DeviceSphere" />
@@ -48,7 +70,7 @@ const Description = () => {
          </Container>
 
          {openModal && <Modal closeModal={setOpenModal} />}
-      </>
+      </form>
    );
 };
 

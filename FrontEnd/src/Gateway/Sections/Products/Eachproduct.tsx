@@ -16,7 +16,7 @@ const EachProduct = ({ product }: Props) => {
             <span>Sale!</span>
          </div>
          <figure>
-            <img src={ImgUrl} alt={title} />
+            <img src={ImgUrl} alt={ImgUrl} />
             <figcaption>{title}</figcaption>
          </figure>
 
@@ -50,11 +50,12 @@ const Container = styled.div`
       z-index: 4;
       border-radius: 50%;
       height: 45px;
-      width: 48px;
+      width: 50px;
 
       span {
          color: var(--dark-blue);
          font-weight: 600;
+         font-size: 15px;
       }
    }
 

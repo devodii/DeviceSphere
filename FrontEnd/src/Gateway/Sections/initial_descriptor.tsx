@@ -31,13 +31,21 @@ const InitialDescriptor = () => (
          </ul>
       </div>
 
-      <Button>
+      <Order>
          <Link to={"/"}>
             <em>Order now, it's on us!</em>
          </Link>
-      </Button>
+      </Order>
    </Container>
 );
+
+const Order = styled(Button)`
+   @media (max-width: 600px) {
+      font-size: 15px;
+      padding-inline: 15px;
+      width: 220px;
+   }
+`;
 const Container = styled.section`
    display: flex;
    flex-direction: column;

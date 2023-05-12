@@ -18,6 +18,8 @@ const HeaderOverlay = () => {
 const Order = styled(Button)`
    @media (max-width: 600px) {
       font-size: 15px;
+      padding-inline: 15px;
+      width: 220px;
    }
 `;
 const Container = styled.header`

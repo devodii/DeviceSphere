@@ -1,34 +1,41 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Allproducts from "./Products/Allproducts";
 import { Product } from "../..";
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../Firebase";
 
 const Offer = () => {
-   const [item, setItem] = useState<Product[] | null>(null);
-   const [error, setError] = useState<boolean>(false)
+   const [item, setItem] = useState<Product[] | null | any>(null);
+   const [loading, setLoading] = useState<boolean>(false);
+   const [error, setError] = useState<any>(null);
    useEffect(() => {
-      const Fetch = async (): Promise<Product[]> => {
-         const response = await fetch("http://localhost:3001/items", {
-            headers: {
-               "Content-Type": "application/json",
-            },
-         });
-         const data = await response.json();
-
-         setItem(data);
-         return data;
-
-        
-      };
-      Fetch();
+      setLoading(true);
+      setTimeout(() => {
+         (async () => {
+            try {
+               const querySnapshot = await getDocs(
+                  collection(db, "AvailableProducts")
+               );
+               const documents = querySnapshot.docs.map((doc) => doc.data());
+               setItem(documents);
+               console.log(documents);
+            } catch (error) {
+               setError(error);
+               console.error("Error retrieving data:", error);
+            } finally {
+               setLoading(false);
+            }
+         })();
+      }, 500);
    }, []);
 
    return (
       <Container>
          <h2>Top Weekly Offers 🔥</h2>
-         {item ? (
-            <Allproducts item={[...item]} />
-         ) : (
+         {loading && <div>Loading...</div>}
+         {item && <Allproducts item={[...item]} />}
+         {error && (
             <div>Products currently unavailable, please check again later.</div>
          )}
       </Container>
@@ -40,7 +47,7 @@ const Container = styled.section`
    flex-direction: column;
    gap: calc(var(--flex-gap) * 3);
    align-items: center;
-   margin-top: 20px;
+   margin-top: 5rem;
    justify-content: center;
 
    h2 {

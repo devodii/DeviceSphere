@@ -43,8 +43,11 @@ const Helped = () => {
          clearTimeout(empowered_count);
          clearTimeout(discountedSale);
       };
+
+      
    });
 
+   
    interface Values {
       amount: string | number;
       title: string;
@@ -56,6 +59,8 @@ const Helped = () => {
       { amount: `${discounts}`, title: "Yearly savings on assisted discounts" },
    ];
 
+   
+   
    return (
       <Container>
          <h2>Raising the Bar: Elevating Lives with Our Product</h2>
