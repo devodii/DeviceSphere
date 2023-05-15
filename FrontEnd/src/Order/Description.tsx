@@ -1,16 +1,12 @@
-import { useId, useRef, useState, useTransition } from "react";
+import { useId, useState, useTransition } from "react";
 import styled from "styled-components";
-import Modal from "./Components/Modal";
-import { useLocation } from "react-router-dom";
-import emailjs from "@emailjs/browser";
-
+import Modal from "../Modal/Modal";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 const Description = () => {
-
-
    const ProductId = useId();
-   const location = useLocation()
-   const [description, setDescription] = useState<string>("")
+   const location = useLocation();
+   const [description, setDescription] = useState<string>("");
    const [, startTransition] = useTransition();
 
    const [openModal, setOpenModal] = useState<boolean>(false);
@@ -23,23 +19,13 @@ const Description = () => {
    };
 
 
-  const form = useRef<HTMLFormElement>();
-  const sendEmail = (e: any) => {
-     e.preventDefault();
-     
-
-    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
-      .then((result) => {
-          console.log(result.text);
-      }, (error) => {
-          console.log(error.text);
-      });
-   };
-   console.log(form.current)
-
-
+   const [searchParams] = useSearchParams()
+   const firstName = searchParams.get('f')
+   const lastName = searchParams.get('l')
+   const email = searchParams.get('e')
+   const tel = searchParams.get('t')
    return (
-      <form ref={form} onSubmit={sendEmail}>
+      <form >
          <Container>
             <figure>
                <img src="/assets/ds.png" alt="DeviceSphere" />
@@ -52,7 +38,7 @@ const Description = () => {
             </figure>
             <form action="" onSubmit={HandleSubmit}>
                <textarea
-                  name={"Your Ideal Product"}
+                  name={description}
                   id={ProductId}
                   cols={10}
                   rows={12}
@@ -67,6 +53,10 @@ const Description = () => {
                   </button>
                </div>
             </form>
+
+            <div>
+               <p>{ email }</p>
+            </div>
          </Container>
 
          {openModal && <Modal closeModal={setOpenModal} />}

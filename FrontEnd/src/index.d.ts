@@ -9,7 +9,7 @@ export interface Testifier {
 }
 
 export interface ModalType {
-   closeModal: any
+   closeModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 type Check = string | boolean | number;
@@ -24,9 +24,10 @@ export interface Faq {
 
 export interface Product {
    ImgUrl: string;
+   productId: any,
    price: number;
-   discounted_as_percent: number;
-   title: string;
+   title: string,
+   normalPrice: number
 }
 
 export interface Benefits {

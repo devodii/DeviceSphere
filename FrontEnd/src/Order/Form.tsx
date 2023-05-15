@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
-import MetaTags from "../../Components/useSEO";
-import { Button } from "../../Components/wrapper";
-import Header from "../Components/Header";
-import { FormValues } from "../..";
-import { useState } from "react";
+import MetaTags from "../Components/useSEO";
+import { Button } from "../Components/wrapper";
+import Header from "./Header";
+import { FormValues } from "..";
+import { useRef, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 
 const SEO = MetaTags({
    title: "Devicesphere | Order",
@@ -16,7 +17,8 @@ const SEO = MetaTags({
 const PrimaryData = () => {
    const form = useForm<FormValues>();
    const { register, control, handleSubmit, formState } = form;
-   const { errors } = formState
+   const { errors } = formState;
+   const [searchParams, setSearchParam] = useSearchParams();
 
    const [SubmittedData, setSubmittedData] = useState<FormValues | null>(null);
 
@@ -24,6 +26,11 @@ const PrimaryData = () => {
       console.log("Submit", data);
       setSubmittedData(data);
       console.log({ SubmittedData });
+   }
+
+   const ButtonRef = useRef<HTMLButtonElement>(null)
+   if (!SubmittedData) {
+      ButtonRef.current?.disabled == true
    }
    console.log(SubmittedData);
    return (
@@ -75,7 +82,6 @@ const PrimaryData = () => {
                <div className="wrapper" aria-labelledby="Phone Number">
                   <label htmlFor={"Tel"}>Phone Number</label>
                   <div className="input-fields" id={"Tel"}>
-                    
                      <div
                         className="input-section column"
                         style={{ width: "min(100%, 300px)" }}
@@ -142,7 +148,23 @@ const PrimaryData = () => {
 
                <div className="next">
                   {/* <Link to={"/description"} state={{ name: "SubmittedData", data: SubmittedData, }}> */}
-                  <Button role="submit">Next</Button>
+                  <Button
+                     role="submit"
+                     ref={ButtonRef}
+                     disabled={false}
+                     onClick={() =>
+                        setSearchParam({
+                           f: SubmittedData?.FirstName as string,
+                           l: SubmittedData?.LastName as string,
+                           e: SubmittedData?.email as string,
+                           t: SubmittedData?.Tel as unknown as string,
+                        })
+                     }
+                  >
+                     { (SubmittedData !== null) && <Link to={ "/description" }>Next</Link> }
+                     { (SubmittedData == null) && <span>Null</span>}
+                  </Button>
+                  { SubmittedData !== null && <Button>Next</Button>}
                   {/* </Link> */}
                </div>
 

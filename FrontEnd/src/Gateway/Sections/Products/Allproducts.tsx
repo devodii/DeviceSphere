@@ -10,7 +10,7 @@ const Allproducts = ({ item }: Props) => {
    const isArray = Array.isArray(item);
    return (
       <Container>
-         {isArray && item.map((product) => <EachProduct product={product} />)}
+         {isArray && item.map((product) => <EachProduct product={product}/>)}
       </Container>
    );
 };

@@ -1,14 +1,19 @@
-import { useId } from "react";
+import { useId, useState } from "react";
 import styled from "styled-components";
 import { Product } from "../../..";
 import { Button } from "../../../Components/wrapper";
+import ProductDescription from "../../../Modal/productDesc";
+import { Link } from "react-router-dom";
 interface Props {
    product: Product;
 }
 
 const EachProduct = ({ product }: Props) => {
    const id: string = useId();
-   const { discounted_as_percent, price, title, ImgUrl } = product;
+   const { normalPrice, price, title, ImgUrl, productId } = product;
+   const [openModal, setOpenModal] = useState(false);
+
+   const discount = ((normalPrice - price) / normalPrice) * 100
 
    return (
       <Container key={id}>
@@ -21,13 +26,31 @@ const EachProduct = ({ product }: Props) => {
          </figure>
 
          <div className="price__container">
-            <span>{`-${discounted_as_percent}%`}</span>
+            <span>{`-${discount}%`}</span>
             <p>{price}</p>
          </div>
 
-         <Button style={{ padding: "10px", width: "150px", fontSize: "13px" }}>
-            Claim yours
-         </Button>
+         <Link to={`.?id=${productId.seconds}`}>
+            <Button
+               style={{ padding: "10px", width: "150px", fontSize: "13px" }}
+               onClick={() => setOpenModal(true)}
+            >
+               View
+            </Button>
+         </Link>
+
+         {openModal && (
+            <ProductDescription
+               closeModal={setOpenModal}
+               description={product}
+               onClose={() => setOpenModal(false)}
+               state={openModal}
+            />
+         )}
+
+         {/* {openModal && <CustomModal onClose={ function (): void {
+            setOpenModal(false)
+         } }><h2>Congratulations, Youy have cheked out</h2></CustomModal>} */}
       </Container>
    );
 };
@@ -51,6 +74,7 @@ const Container = styled.div`
       border-radius: 50%;
       height: 45px;
       width: 50px;
+      user-select: none;
 
       span {
          color: var(--dark-blue);
@@ -70,9 +94,8 @@ const Container = styled.div`
       img {
          height: 100%;
          transition: all 300ms;
-         &:hover {
-            transform: translateX(-20px);
-         }
+         user-select: none;
+         object-fit: contain;
       }
       figcaption {
          font-size: 22px;
@@ -109,10 +132,6 @@ const Container = styled.div`
 
    &:hover {
       border: 1px solid var(--primary-pink);
-
-      img {
-         transform: translateX(-40px);
-      }
    }
 `;
 
