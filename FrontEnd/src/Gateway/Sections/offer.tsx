@@ -4,12 +4,13 @@ import useProduct from "../../Hooks/useProduct";
 
 const Offer = () => {
    const { item, loading } = useProduct();
+   const firstThree = item?.slice(0, 3)
  console.log(item)  
    return (
       <Container>
-         <h2>Top Weekly Offers 🔥</h2>
+         <h2>Top Daily Offers 🔥</h2>
          {loading && <div className="loading">Loading...</div>}
-         {item && <Allproducts item={[...item]} />}
+         {firstThree && <Allproducts item={[...firstThree]} />}
          {item?.length < 1 && (
             <div className="error">Products currently unavailable, please check again later.</div>
          ) }

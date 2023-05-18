@@ -5,10 +5,9 @@ import styled from "styled-components";
 
 const ViewProducts = () => {
    const { item, loading } = useProduct();
-   console.log(window.location.href);
    return (
       <Redirect>
-         {!item ? <h1>Listed Products</h1> : <h1>No Listed Products</h1>}
+         <h1>Listed Products</h1>
          {loading ? (
             <div>Loading</div>
          ) : (
@@ -20,7 +19,11 @@ const ViewProducts = () => {
                )}
                {item !== null && item.length < 1 && (
                   <>
+                     <p>You currently do not have any product listed</p>
                      <p>When you list a product, they will show up here.</p>
+                     <p>
+                        Feel this is an error? <span onClick={() => window.location.reload()} className="refresh">refresh</span>
+                     </p>
                      <Link to={"../add"}>Add Product</Link>
                   </>
                )}
@@ -34,6 +37,9 @@ const Redirect = styled.div`
    a {
       color: #000;
       margin-top: 10px;
+   }
+   .refresh {
+      text-decoration: underline;
    }
 `;
 

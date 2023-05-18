@@ -2,7 +2,7 @@ import { redirect } from "react-router-dom";
 
 export namespace Loader {
    export async function checkAdmin() {
-      const isAdmin = false;
+      const isAdmin = true;
       if (!isAdmin) {
          throw redirect('/')
       }
@@ -19,3 +19,17 @@ export namespace MathsFunctions {
       return fn.format(currency)
    }
 }
+
+export const passwordAuth = async (password: any) => {
+   const validatedPassword = 'chachods23'
+   if (password === validatedPassword) {
+      return {validatedPassword}
+   }
+   else {
+      throw {
+         message: "Invalid Password"
+      }
+   }
+}
+
+

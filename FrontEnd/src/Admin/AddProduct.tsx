@@ -1,6 +1,9 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import ImageUploader from "../Components/Image";
+import firebase from "firebase/compat/app";
+import { useNavigate } from "react-router-dom";
+
 
 const AddProduct = () => {
    const nameRef = useRef<HTMLInputElement>(null);
@@ -11,6 +14,14 @@ const AddProduct = () => {
       DsPrice: "",
       Description: "",
    });
+
+
+   const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+   const handleImageUrl = (data: string | null) => {
+      setImageUrl(data)
+   }
+
    const handleChange = (
       e: React.ChangeEvent<
          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -20,12 +31,34 @@ const AddProduct = () => {
       setProductState((prev) => ({ ...prev, [name]: value }));
    };
 
-   const [preview, setPreview] = useState<boolean>(false);
+
+    const db = firebase.firestore();
+   const handleSubmit = (e: any) => {
+      e.preventDefault()
+
+      db.collection('AvailableProducts').add({
+         name: productState.Name,
+         imgUrl: imageUrl as string,
+         description: productState.Description,
+         category: productState.Category,
+         id: new Date().getTime(),
+         normalPrice: productState.NormalPrice,
+         price: productState.DsPrice,
+         productId: new Date().getTime()
+      }).then(docRef => {
+         const docId = docRef.id;
+         console.log(docId)
+      }).catch(error => console.log(`Error ${error.message}`))
+     
+
+   }
+
+  
    return (
       <Container>
          <h1>Add a product to DeviceSphere </h1>
 
-         <form action="">
+         <form action="" onSubmit={handleSubmit}>
             <div className="primary">
                <h2>Primary Information</h2>
 
@@ -37,6 +70,7 @@ const AddProduct = () => {
                      name="Name"
                      value={productState.Name}
                      ref={nameRef}
+                     required
                      onChange={handleChange}
                   />
                </label>
@@ -48,6 +82,7 @@ const AddProduct = () => {
                      id="category"
                      value={productState.Category}
                      onChange={handleChange}
+                     required
                   >
                      <option value=""></option>
                      <option value="iPhone">iPhones</option>
@@ -58,9 +93,10 @@ const AddProduct = () => {
                <label htmlFor="nprice">
                   <p> Normal Product Price:</p>
                   <input
-                     type="text"
+                     type="number"
                      id="nprice"
                      name="NormalPrice"
+                     required
                      onChange={handleChange}
                   />
                </label>
@@ -68,9 +104,10 @@ const AddProduct = () => {
                <label htmlFor="price">
                   <p>Your Price:</p>
                   <input
-                     type="text"
+                     type="number"
                      id="price"
                      name="DsPrice"
+                     required
                      onChange={handleChange}
                      value={productState.DsPrice}
                   />
@@ -79,7 +116,11 @@ const AddProduct = () => {
 
             <div className="image-container">
                <h2>Product Image</h2>
-               <ImageUploader label={nameRef.current?.value as string} productName={productState.Name} />
+               <ImageUploader
+                  label={nameRef.current?.value as string}
+                  productName={ productState.Name }
+                  sendToParent = {handleImageUrl}
+               />
             </div>
 
             <div className="description">
@@ -89,29 +130,16 @@ const AddProduct = () => {
                      name="Description"
                      id="description"
                      cols={30}
-                     rows={10}
+                     rows={ 10 }
+                     required
                      value={productState.Description}
                      onChange={handleChange}
                   ></textarea>
                </label>
             </div>
-            <div>
-               <label htmlFor="sendAsMail" className="subscribers">
-                  <input type="checkbox" id="sendAsMail" />
-                  <span>Send this to all Newsletter subscribers </span>
-               </label>{" "}
-            </div>
 
             <div className="submit">
                {" "}
-               <Button
-                  onClick={(e) => {
-                     setPreview(true);
-                     e.preventDefault();
-                  }}
-               >
-                  Preview
-               </Button>
                <Button role="submit">Submit!</Button>
             </div>
          </form>

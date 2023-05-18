@@ -24,12 +24,12 @@ const router = createBrowserRouter(
          <Route path="description" element={<Description />} />
 
          <Route path="test" element={<AddFirestore />} />
-         <Route path="chacho" element={<Outlet />}>
-            <Route
-               path="login"
-               element={<Login />}
-               loader={async () => await Loader.checkAdmin()}
-            />
+         <Route
+            path="chacho"
+            element={<Outlet />}
+            loader={async () => await Loader.checkAdmin()}
+         >
+            <Route path="login" element={<Login />} />
             <Route path="dashboard" element={<Dashboard />}>
                <Route index element={<h1>Welcome, Chacho</h1>} />
                <Route path="view" element={<ViewProducts />} />

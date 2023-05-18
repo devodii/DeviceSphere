@@ -4,6 +4,7 @@ import { Product } from "../../..";
 import { Button } from "../../../Components/wrapper";
 import ProductDescription from "../../../Modal/productDesc";
 import { Link } from "react-router-dom";
+import { MathsFunctions } from "../../../utils";
 interface Props {
    product: Product;
 }
@@ -13,7 +14,7 @@ const EachProduct = ({ product }: Props) => {
    const { normalPrice, price, title, ImgUrl, productId } = product;
    const [openModal, setOpenModal] = useState(false);
 
-   const discount = ((normalPrice - price) / normalPrice) * 100
+   const discount = Math.round(((normalPrice - price) / normalPrice) * 100);
 
    return (
       <Container key={id}>
@@ -27,7 +28,7 @@ const EachProduct = ({ product }: Props) => {
 
          <div className="price__container">
             <span>{`-${discount}%`}</span>
-            <p>{price}</p>
+            <p>{MathsFunctions.convertCurrency(price)}</p>
          </div>
 
          <Link to={`.?id=${productId.seconds}`}>
@@ -116,22 +117,17 @@ const Container = styled.div`
       }
       p {
          color: var(--primary-pink);
-         text-decoration: underline;
          font-size: 20px;
          font-weight: 600;
          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-         letter-spacing: 1px;
          cursor: pointer;
          margin-left: 10px;
-         &:before {
-            content: "₦";
-            font-size: 16px;
-         }
+         color: var(--currency);
       }
    }
 
    &:hover {
-      border: 1px solid var(--primary-pink);
+      box-shadow: 3px 3px 4px 2px rgba(0,0,0,0.5);
    }
 `;
 

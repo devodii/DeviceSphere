@@ -1,42 +1,63 @@
-import { MdAdminPanelSettings } from 'react-icons/md';
-import styled from 'styled-components'
-import { BiHide, BiShow } from "react-icons/bi"
-import { useRef, useState } from "react"
-
+import { MdAdminPanelSettings } from "react-icons/md";
+import styled from "styled-components";
+import { BiHide, BiShow } from "react-icons/bi";
+import { useRef, useState } from "react";
+import { passwordAuth } from "../utils";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const passwordRef = useRef<HTMLInputElement>(null);
-    const [hide, setHide] = useState<boolean>(false)
-    
-    const handleSubmit = (e: any) => {
-        e.preventDefault()
-    }
+   const passwordRef = useRef<HTMLInputElement>(null);
+   const [hide, setHide] = useState<boolean>(false);
+   const [error, setError] = useState<null | any>(null);
+   const [status, setStatus] = useState<string>("idle");
+   const [passwordValue, setPasswordValue] = useState<any>("");
+   const navigate = useNavigate();
+   const handleSubmit = (e: any) => {
+      e.preventDefault();
+      setError(null);
+      setStatus("Checking");
 
-    return (
-       <Container>
-          <div className="header">
-             <h1>Login</h1>
-             <MdAdminPanelSettings className="fa" />
-          </div>
-          <form action="" onSubmit={handleSubmit}>
-             <div className='container'>
-                <label htmlFor="password">Enter Password:</label>
-                <div className="password">
-                   <input type={hide ? 'password' : 'text'} ref={passwordRef} />
-                        { !hide && <BiShow className="fa" onClick={ () => setHide(!hide) } /> }
-                        {hide && <BiHide className="fa" onClick={ () => setHide(!hide)} />}
-                </div>
-             </div>
-             <button type="submit" role="submit">
-                Login
-                </button>
-                <p>{ hide }</p>
-            </form>
-            
-       </Container>
-    );
+      setTimeout(() => {
+         passwordAuth(passwordValue)
+            .then(() => navigate('../dashboard', { replace: true,  }))
+            .catch((error) => setError(error))
+         .finally(() => setStatus('idle'))
+      }, 2000);
+   };
+
+   return (
+      <Container>
+         <div className="header">
+            <h1>Login</h1>
+            <MdAdminPanelSettings className="fa" />
+         </div>
+         <form action="" onSubmit={handleSubmit}>
+            <div className="container">
+               <label htmlFor="password">Enter Password:</label>
+               <div className="password">
+                  <input
+                     type={hide ? "password" : "text"}
+                     ref={passwordRef}
+                     value={passwordValue}
+                     onChange={(e) => setPasswordValue(e.target.value)}
+                  />
+                  {!hide && (
+                     <BiShow className="fa" onClick={() => setHide(!hide)} />
+                  )}
+                  {hide && (
+                     <BiHide className="fa" onClick={() => setHide(!hide)} />
+                  )}
+               </div>
+            </div>
+            <button type="submit" role="submit" disabled={status === "Checking"}>
+               Login
+            </button>
+
+            <p>{ error?.message }</p>
+         </form>
+      </Container>
+   );
 };
-
 
 const Container = styled.div`
    display: flex;
@@ -56,7 +77,7 @@ const Container = styled.div`
       }
    }
    h1 {
-    color: var(--dark-blue)
+      color: var(--dark-blue);
    }
    form {
       width: 100%;
@@ -96,21 +117,20 @@ const Container = styled.div`
             cursor: pointer;
          }
       }
-
    }
    div.container {
-    display: flex;
+      display: flex;
    }
    button {
-    width: min(100%, 200px);
-    margin-top: 5px;
-    padding: 5px 0;
-    border-radius: 4px;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    user-select: none;
+      width: min(100%, 200px);
+      margin-top: 5px;
+      padding: 5px 0;
+      border-radius: 4px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      user-select: none;
    }
 `;
 export default Login;
