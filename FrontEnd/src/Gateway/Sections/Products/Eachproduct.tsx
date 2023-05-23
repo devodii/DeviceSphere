@@ -11,7 +11,7 @@ interface Props {
 
 const EachProduct = ({ product }: Props) => {
    const id: string = useId();
-   const { normalPrice, price, title, ImgUrl, productId } = product;
+   const { normalPrice, price, title, ImgUrl, productId, name } = product;
    const [openModal, setOpenModal] = useState(false);
 
    const discount = Math.round(((normalPrice - price) / normalPrice) * 100);
@@ -31,7 +31,7 @@ const EachProduct = ({ product }: Props) => {
             <p>{MathsFunctions.convertCurrency(price)}</p>
          </div>
 
-         <Link to={`.?id=${productId.seconds}`}>
+         <Link to={`.?id=${productId.seconds}&name=${name}`}>
             <Button
                style={{ padding: "10px", width: "150px", fontSize: "13px" }}
                onClick={() => setOpenModal(true)}
@@ -42,7 +42,6 @@ const EachProduct = ({ product }: Props) => {
 
          {openModal && (
             <ProductDescription
-               closeModal={setOpenModal}
                description={product}
                onClose={() => setOpenModal(false)}
                state={openModal}
@@ -127,7 +126,7 @@ const Container = styled.div`
    }
 
    &:hover {
-      box-shadow: 3px 3px 4px 2px rgba(0,0,0,0.5);
+      box-shadow: 0 3px 32px 2px rgba(0,0,0,0.3);
    }
 `;
 

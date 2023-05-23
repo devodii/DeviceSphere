@@ -23,7 +23,8 @@ export interface Faq {
 }
 
 export interface Product {
-   ImgUrl: string;
+   ImgUrl: string,
+   name: string,
    productId: any,
    price: number;
    title: string,

@@ -12,14 +12,13 @@ import Description from "./Order/Description";
 import Error from "./Components/Error";
 import AddFirestore from "./Components/AddFirestore";
 import Login from "./Admin/Login";
-import { Loader } from "./utils";
 import Dashboard from "./Admin/Dashboard";
 import AddProduct from "./Admin/AddProduct";
 import ViewProducts from "./Admin/ViewProducts";
 const router = createBrowserRouter(
    createRoutesFromElements(
-      <Route path="/">
-         <Route index element={<DeviceSphere />} errorElement={<Error />} />
+      <Route path="/" errorElement={<Error />}>
+         <Route index element={<DeviceSphere />} errorElement={<Error />}/>
          <Route path="order" element={<Form />} />
          <Route path="description" element={<Description />} />
 
@@ -27,12 +26,11 @@ const router = createBrowserRouter(
          <Route
             path="chacho"
             element={<Outlet />}
-            loader={async () => await Loader.checkAdmin()}
          >
             <Route path="login" element={<Login />} />
             <Route path="dashboard" element={<Dashboard />}>
                <Route index element={<h1>Welcome, Chacho</h1>} />
-               <Route path="view" element={<ViewProducts />} />
+               <Route path="view" element={<ViewProducts />}  />
                <Route path="add" element={<AddProduct />} />
             </Route>
          </Route>

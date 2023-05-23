@@ -13,7 +13,7 @@ export const Button = styled.button`
    transition: all 250ms;
    cursor: pointer;
    &:hover {
-      box-shadow: 0 2px 32px 4px var(--depreciated-pink);
+      box-shadow: 0 2px 32px 0 rgba(0,0,0, 0.4);
    }
 
    a {

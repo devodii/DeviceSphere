@@ -4,7 +4,7 @@ interface ModalProp {
   onClose: () => void,
   children: React.ReactNode
 }
-const Modal: React.FC<ModalProp> = ({onClose, children}) => {
+const Modal: React.FC<ModalProp> = ({ children}) => {
   return (
      <div>
       <div className="starter">{ children }</div>

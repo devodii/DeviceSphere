@@ -1,6 +1,7 @@
 const Error = () => (
    <div>
-      <h1>An Error occured</h1>
+      <h1>Something went wrong</h1>
+      <p>Try refreshing the page</p>
    </div>
 );
 

@@ -43,7 +43,7 @@ const Container = styled.section`
       margin-top: -1rem;
    }
    div.error {
-      margin-top: -2rem;
+      margin-top: -4rem;
    }
 `;
 export { Offer as default}

@@ -8,7 +8,7 @@ const Helped = () => {
    const [discounts, setDiscounts] = useState<number>(0);
 
    useEffect(() => {
-      const intervalId: number = setTimeout((): void => {
+      const intervalId: any = setTimeout((): void => {
          setDeliveredProducts((prevCount: number) => {
             if (prevCount === 12000) {
                clearTimeout(intervalId);
@@ -18,7 +18,7 @@ const Helped = () => {
          });
       }, 25);
 
-      const empowered_count: number = setTimeout(() => {
+      const empowered_count: any = setTimeout(() => {
          setEmpowered((prev: number) => {
             if (prev === 1520) {
                clearTimeout(empowered_count);
@@ -28,7 +28,7 @@ const Helped = () => {
          });
       }, 25);
 
-      const discountedSale: number = setTimeout((): void => {
+      const discountedSale: any = setTimeout((): void => {
          setDiscounts((prevCount: number) => {
             if (prevCount == 100000) {
                clearTimeout(discountedSale);

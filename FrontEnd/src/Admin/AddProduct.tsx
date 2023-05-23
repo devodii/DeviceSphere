@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import styled from "styled-components";
 import ImageUploader from "../Components/Image";
 import firebase from "firebase/compat/app";
-import { useNavigate } from "react-router-dom";
 
 
 const AddProduct = () => {

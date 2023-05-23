@@ -18,7 +18,7 @@ const PrimaryData = () => {
    const form = useForm<FormValues>();
    const { register, control, handleSubmit, formState } = form;
    const { errors } = formState;
-   const [searchParams, setSearchParam] = useSearchParams();
+   const [, setSearchParam] = useSearchParams();
 
    const [SubmittedData, setSubmittedData] = useState<FormValues | null>(null);
 

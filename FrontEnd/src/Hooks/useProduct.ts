@@ -30,8 +30,8 @@ const useProduct = (): useProductReturn => {
          }
       })();
    }, []);
-   console.log(item);
    return { item, loading, error };
 };
+
 
 export default useProduct;

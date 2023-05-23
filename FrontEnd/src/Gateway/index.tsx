@@ -10,8 +10,7 @@ import MainFooter from "./Footer/main_footer";
 import { useEffect, useState } from "react";
 import HeaderOverlay from "./Header/ActiveHeader";
 import Testimonial from "./Sections/testimonial";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../Firebase";
+
 const DeviceSphere = () => {
    const [showHeader, setShowHeader] = useState<boolean>(false);
 
@@ -30,6 +29,7 @@ const DeviceSphere = () => {
    return (
       <Container>
          <Header />
+         <button onClick={() => localStorage.removeItem('loggedIn')}>CLose</button>
          {showHeader && <HeaderOverlay />}
          <InitialDescriptor />
          <GadgetHunt />

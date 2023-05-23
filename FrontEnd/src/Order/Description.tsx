@@ -1,11 +1,9 @@
 import { useId, useState, useTransition } from "react";
 import styled from "styled-components";
 import Modal from "../Modal/Modal";
-import { useLocation, useSearchParams } from "react-router-dom";
 
 const Description = () => {
    const ProductId = useId();
-   const location = useLocation();
    const [description, setDescription] = useState<string>("");
    const [, startTransition] = useTransition();
 
@@ -19,11 +17,11 @@ const Description = () => {
    };
 
 
-   const [searchParams] = useSearchParams()
-   const firstName = searchParams.get('f')
-   const lastName = searchParams.get('l')
-   const email = searchParams.get('e')
-   const tel = searchParams.get('t')
+   // const [searchParams] = useSearchParams()
+   // const firstName = searchParams.get('f')
+   // const lastName = searchParams.get('l')
+   // const email = searchParams.get('e')
+   // const tel = searchParams.get('t')
    return (
       <form >
          <Container>
@@ -55,7 +53,7 @@ const Description = () => {
             </form>
 
             <div>
-               <p>{ email }</p>
+               {/* <p>{ email }</p> */}
             </div>
          </Container>
 

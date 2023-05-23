@@ -1,14 +1,5 @@
-import { redirect } from "react-router-dom";
 
-export namespace Loader {
-   export async function checkAdmin() {
-      const isAdmin = true;
-      if (!isAdmin) {
-         throw redirect('/')
-      }
-      return null
-   }
-}
+
 
 export namespace MathsFunctions {
    export function convertCurrency(currency: number) {

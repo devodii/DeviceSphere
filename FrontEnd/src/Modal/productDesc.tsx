@@ -1,26 +1,24 @@
 import styled from "styled-components";
-import { ModalType } from "..";
 import { useEffect, useRef } from "react";
 import React from "react";
 import { IoMdClose } from "react-icons/io";
 import { useMediaQuery } from "@material-ui/core";
 import { MathsFunctions } from "../utils";
 import { Button } from "../Components/wrapper";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 interface Props {
-   closeModal: ModalType["closeModal"];
    description?: any;
    onClose: () => void;
    state: boolean;
 }
 const ProductDescription: React.FC<Props> = ({
-   closeModal,
    description,
    onClose,
 }) => {
    const ModalRef = useRef<HTMLDivElement>(null);
    const Match = useMediaQuery("(min-width: 600px)");
-   const [searchParam, setSearchParam] = useSearchParams()
+   const [, setSearchParam] = useSearchParams();
+
 
    const descriptionText =
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint tempore, laborum pariatur dolorem aliquam natus dolores magni vero earum neque saepe sunt laboriosam animi placeat, a aspernatur, nihil quam voluptate necessitatibus enim odit nulla fuga! Maiores, modi cupiditate. Cumque, repudiandae.";
@@ -29,7 +27,7 @@ const ProductDescription: React.FC<Props> = ({
       const handleClickOutside = (e: MouseEvent) => {
          if (ModalRef.current && !ModalRef.current.contains(e.target as Node)) {
             onClose();
-            setSearchParam("")
+            setSearchParam({})
             
          }
       };
@@ -39,6 +37,8 @@ const ProductDescription: React.FC<Props> = ({
             onClose();
          }
       };
+     
+     
 
       document.addEventListener("mousedown", handleClickOutside);
       document.addEventListener("keydown", handleEscapeKey);
@@ -76,7 +76,7 @@ const ProductDescription: React.FC<Props> = ({
                      {MathsFunctions.convertCurrency(description.price)}
                   </strong>
                </div>
-               <Button className="order">Get Now</Button>
+               <Button className="order"><Link to='?skal'>Get Now</Link></Button>
             </aside>
          </section>
 
